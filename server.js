@@ -148,3 +148,71 @@ const server = net.createServer((socket) => {
           socket.write(`Gabim gjatë krijimit të skedarit: ${err.message}\n`);
         }
       }
+    }
+    // Komanda delete <file> (për të fshirë një skedar)
+    else if (command[0] === 'delete' && privileges[clientName] === 'privilegje te plota') {
+      if (!command[1]) {
+        socket.write('Specifikoni emrin e skedarit për fshirje.\n');
+        return;
+      }
+      const filePath = path.join(folderPath, command[1]);
+
+      try {
+        fs.unlinkSync(filePath);
+        socket.write(`Skedari i fshirë: ${filePath}\n`);
+      } catch (err) {
+        socket.write(`Gabim gjatë fshirjes së skedarit: ${err.message}\n`);
+      }
+    }
+    else {
+      socket.write('Komandë e pavlefshme.\n');
+    }
+  }
+});
+
+socket.on('end', () => {
+  delete clients[clientName];  // Hiq klientin nga lista kur largohet
+  console.log(`Klienti ${clientName} u largua.`);
+});
+});
+
+// Funksioni për të dërguar mesazhe për një klient të caktuar
+function sendMessageToClient(clientName, message, senderName) {
+const clientSocket = clients[clientName];
+if (clientSocket) {
+  clientSocket.write(`Mesazh privat nga ${senderName}: ${message}\n`);
+} else {
+  console.log(`Klienti ${clientName} nuk është i lidhur.`); 
+}
+}
+
+// Funksioni për të dërguar mesazhe për të gjithë klientët
+function broadcastMessage(message, senderName) {
+for (const clientName in clients) {
+  const clientSocket = clients[clientName];
+  clientSocket.write(`Mesazh i dërguar nga ${senderName} për të gjithë: ${message}\n`);
+}
+}
+
+// Serveri dëgjon në portin 3000
+server.listen(3000, '127.0.0.1', () => {
+console.log('Serveri është duke dëgjuar në portin 3000.');
+console.log('Komandat që mund të shkruani në terminalin e serverit:');
+console.log('- chat <clientName> <mesazh> : Dërgon mesazh privat për një klient të caktuar.');
+console.log('- broadcast <mesazh>     : Dërgon mesazhin për të gjithë klientët.');
+
+// Përdorim readline për të lejuar komanda nga terminali i serverit
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Komanda për të dërguar mesazh broadcast nga terminali i serverit
+rl.on('line', (input) => {
+  if (input.startsWith('broadcast ')) {
+    const message = input.slice(10);  // Merr mesazhin pas 'broadcast'
+    broadcastMessage(message, 'server');
+    console.log(`Mesazh i dërguar për të gjithë: ${message}`);
+  }
+});
+});
