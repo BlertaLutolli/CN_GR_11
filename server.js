@@ -18,7 +18,6 @@ const server = net.createServer((socket) => {
 
   clients[clientId] = socket;
 
-  socket.write('Ju lutem, shkruani emrin tuaj: \n');
   socket.on('data', (data) => {
     const message = data.toString().trim();
 
@@ -148,7 +147,7 @@ const server = net.createServer((socket) => {
           socket.write(`Gabim gjatë krijimit të skedarit: ${err.message}\n`);
         }
       }
-    }
+    
     // Komanda delete <file> (për të fshirë një skedar)
     else if (command[0] === 'delete' && privileges[clientName] === 'privilegje te plota') {
       if (!command[1]) {
