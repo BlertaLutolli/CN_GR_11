@@ -66,3 +66,33 @@ Përdoruesit që lidhen me serverin mund të kenë dy lloje privilegjesh:
 | `delete <emriSkedarit>`             | Po    | Jo     | Fshirja e skedarëve          |
 | `list <folder>`                     | Po    | Po     | Shfaqja e skedarëve në dosje |
 | `execute <emriSkedarit>`            | Po    | Jo     | Ekzekutimi i skedarëve       |
+
+Shembuj të Komandave
+
+- `read <emriSkedarit>`: Lexon përmbajtjen e një skedari në server.
+  
+  Shembull:
+  ```bash
+  read dokument.txt
+
+  ### Shembuj të Komandave
+
+- `broadcast <mesazh>`: Lexon përmbajtjen e një skedari në server.
+  
+  Shembull:
+  ```bash
+  broadcast Përshëndetje të gjithëve!
+
+## Rezultatet
+
+Ky projekt ka arritur të implementojë me sukses një server TCP që menaxhon komanda të ndryshme të dërguara nga klientë me privilegje të ndryshme. Privilegjet janë menaxhuar në mënyrë efikase, ku përdoruesit me privilegje të plota (admin) kanë mundësi të kryejnë operacione të avancuara (si shkruajta, fshirja dhe ekzekutimi i skedarëve), ndërsa përdoruesit me privilegje të pjesshme kanë qasje të kufizuar. Ky sistem ofron një platformë të sigurt për komunikim, duke përdorur sockets TCP për dërgimin e mesazheve dhe ekzekutimin e komandave, dhe siguron që të dhënat të jenë të mbrojtura në përputhje me privilegjet e përdoruesve.
+
+## Autoret
++ Blerina Balaj
++ Bleron Mujaj	
++ Bleron Rrmoku	
++ Blerta Lutolli
+
+Fakulteti i Inxhinierisë Elektrike dhe Kompjuterike / Inxhinieri Kompjuterike dhe Softuerike
+
+Profesor: PhD.c Mërgim Hoti
