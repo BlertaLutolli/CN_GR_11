@@ -169,12 +169,15 @@ const server = net.createServer((socket) => {
   }
 });
 
-socket.on('end', () => {
+socket.on('close', () => {
   delete clients[clientName];  // Hiq klientin nga lista kur largohet
   console.log(`Klienti ${clientName} u largua.`);
 });
-});
 
+socket.on('error', (err) => {
+  console.error(`Gabim i ndodhur gjatë lidhjes me klientin.`);
+});
+});
 // Funksioni për të dërguar mesazhe për një klient të caktuar
 function sendMessageToClient(clientName, message, senderName) {
 const clientSocket = clients[clientName];

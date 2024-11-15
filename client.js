@@ -30,6 +30,17 @@ client.connect(serverPort, serverHost, () => {
   });
 });
 
+// Trajto eventin error nëse lidhja dështon (serveri është i fikur)
+client.on('error', (err) => {
+  if (err.code === 'ECONNREFUSED') {
+    console.log("Serveri nuk është i lidhur.");
+  } else {
+    console.error('Gabim gjatë lidhjes:', err);
+  }
+  isConnected = false; // Nëse ka gabim, lidhja është dështuar
+  rl.close(); // Mbyll readline interface
+});
+
 // Lexo të dhënat nga serveri
 client.on('data', (data) => {
   console.log('Mesazh nga serveri:', data.toString());
@@ -46,7 +57,8 @@ client.on('end', () => {
 });
 
 // Trajto gabimet
-client.on('error', (err) => {
+/* client.on('error', (err) => {
   console.error('Gabim gjatë lidhjes:', err);
   rl.close();
 });
+*/
