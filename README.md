@@ -14,3 +14,30 @@ TCP (Transmission Control Protocol) është një protokoll lidhjeje që siguron 
 - *Besueshmëria*: TCP siguron që të dhënat të arrijnë tek destinacioni pa humbje.
 - *Kontrolli i rrjedhës*: Ka mekanizma për të kontrolluar fluksin e të dhënave.
 - *Drejtimi*: Komunikimi mund të bëhet në mënyrë të njëpasnjëshme dhe të kontrolluar.
+
+## Teknologjitë e Përdorura
+
+- **Node.js** - Shkarkoni dhe instaloni nga [nodejs.org](https://nodejs.org/)
+
+### Instalimi dhe Ekzekutimi
+
+1. **Përgatitja e Serverit**:
+   - Hapni terminalin dhe drejtohuni te dosja e projektit.
+   - Ekzekutoni komandën për të startuar serverin:
+     ```bash
+     node server.js
+     ```
+
+2. **Përgatitja e Klientit**:
+   - Hapni një tjetër terminal dhe drejtohuni te dosja e projektit.
+   - Ekzekutoni komandën për të lidhur një klient:
+     ```bash
+     node client.js
+     ```
+
+## Funksionaliteti i Projektit
+
+Ky projekt përfshin dy module kryesore:
+
+- **Serveri**: Pret lidhjet nga klientët dhe menaxhon komandat që klientët mund të dërgojnë, duke u bazuar në privilegjet e tyre.
+- **Klienti**: Dërgon komanda dhe merr përgjigje nga serveri përmes TCP.
