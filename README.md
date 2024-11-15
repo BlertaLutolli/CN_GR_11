@@ -75,7 +75,6 @@ Shembuj të Komandave
   ```bash
   read dokument.txt
 
-  ### Shembuj të Komandave
 
 - `broadcast <mesazh>`: Lexon përmbajtjen e një skedari në server.
   
