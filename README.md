@@ -41,3 +41,28 @@ Ky projekt përfshin dy module kryesore:
 
 - **Serveri**: Pret lidhjet nga klientët dhe menaxhon komandat që klientët mund të dërgojnë, duke u bazuar në privilegjet e tyre.
 - **Klienti**: Dërgon komanda dhe merr përgjigje nga serveri përmes TCP.
+
+### Struktura e Privilegjeve
+
+Përdoruesit që lidhen me serverin mund të kenë dy lloje privilegjesh:
+
+1. **Privilegje të Plota**:
+
+   - Përdoruesit admin mund të ekzekutojnë çdo komandë, përfshirë operacionet sensitive si ekzekutimi i skedarëve, shkruarja dhe fshirja e skedarëve.
+
+2. **Privilegje të Pjesshme**:
+
+   - Përdoruesit me privilegje të pjesshme mund të dërgojnë mesazhe dhe të lexojnë skedarët, por nuk mund të ekzekutojnë operacione si shkruarja, fshirja apo ekzekutimi i skedarëve.
+
+### Komandat e Lejuara
+
+| Komanda                             | Admin | Lexues | Roli i Komandës              |
+|-------------------------------------|-------|--------|------------------------------|
+| `broadcast <mesazh>`                | Po    | Po     | Komunikim i përgjithshëm     |
+| `chat <clientName> <mesazh>`        | Po    | Po     | Komunikim privat             |
+| `read <emriSkedarit>`               | Po    | Po     | Leximi i skedarëve           |
+| `write <emriSkedarit> <përmbajtje>` | Po    | Jo     | Shkrimi në skedar            |
+| `create <emriSkedarit> <përmbajtje>`| Po    | Jo     | Krijimi i skedarëve          |
+| `delete <emriSkedarit>`             | Po    | Jo     | Fshirja e skedarëve          |
+| `list <folder>`                     | Po    | Po     | Shfaqja e skedarëve në dosje |
+| `execute <emriSkedarit>`            | Po    | Jo     | Ekzekutimi i skedarëve       |
