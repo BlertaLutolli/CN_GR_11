@@ -5,7 +5,8 @@ const path = require('path');
 const os = require('os');
 
 // Folderi që përdoret për operacione mbi skedarë
-const folderPath = path.join('C:', 'Users', 'bleri', 'OneDrive', 'Desktop', 'New1');  
+const folderPath = path.join('C:', 'Users', 'x', 'x', 'FolderName');  // Path-i i folderit 
+
 // Lista e klientëve dhe privilegjeve
 const clients = {};
 const privileges = {};
