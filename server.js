@@ -88,6 +88,8 @@ const server = net.createServer((socket) => {
         } else {
           socket.write(`Klienti ${targetClient} nuk është i lidhur.\n`);
         }
+
+        return;
       }
       // Komanda broadcast <message> (për dërgimin e mesazheve për të gjithë klientët)
       else if (command[0] === "broadcast" && command.length > 1) {
