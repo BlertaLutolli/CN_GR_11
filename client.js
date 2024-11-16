@@ -43,11 +43,13 @@ client.on('error', (err) => {
 
 // Lexo të dhënat nga serveri
 client.on('data', (data) => {
-  console.log('Mesazh nga serveri:', data.toString());
+  console.log('', data.toString());
   // Pas marrjes së mesazhit nga serveri, kërko komandën nga përdoruesi
-  rl.question('Shkruani komandën tuaj: ', (command) => {
+
+  rl.question('Shkruani komandën tuaj:', (command) => {
     sendCommand(command);
   });
+  return;
 });
 
 // Trajto lidhjen e mbyllur

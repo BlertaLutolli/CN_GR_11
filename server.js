@@ -19,6 +19,22 @@ const server = net.createServer((socket) => {
 
   clients[clientId] = socket;
 
+  function executeFile(fileName) {
+    try {
+      // Krijo rrugën absolute për skedarin .exe
+      const filePath = path.join(__dirname, fileName);
+
+      // Ekzekuto komanden `execute` me `execSync`
+      const output = execSync(filePath).toString();
+
+      // Dërgo rezultatin e ekzekutimit tek klienti
+      socket.write(`Ekzekutimi përfundoi: ${output}\n`);
+    } catch (error) {
+      // Nëse ka ndodhur gabim, dërgo mesazh gabimi
+      socket.write(`Gabim gjatë ekzekutimit: ${error.message}\n`);
+    }
+  }
+
   socket.on('data', (data) => {
     const message = data.toString().trim();
 
@@ -50,6 +66,7 @@ const server = net.createServer((socket) => {
 
       const command = message.split(' ');
 
+    
       if (command[0] === 'chat' && command.length > 2) {
         const targetClient = command[1];
         const chatMessage = message.slice(6 + targetClient.length);  
@@ -60,6 +77,8 @@ const server = net.createServer((socket) => {
         } else {
           socket.write(`Klienti ${targetClient} nuk është i lidhur.\n`);
         }
+
+        return;
       }
       // Komanda broadcast <message> (për dërgimin e mesazheve për të gjithë klientët)
       else if (command[0] === 'broadcast' && command.length > 1) {
