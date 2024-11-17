@@ -37,19 +37,28 @@ const server = net.createServer((socket) => {
         `Përshëndetje ${clientName}, keni ${privileges[clientName]}\n`
       );
 
-      socket.write(`
-  Komandat që mund të përdorni:
-  - broadcast <mesazh>:Dërgon mesazh për të gjithë
-  - chat <emriKlientit> <mesazh>:Dërgon mesazh privat për një klient tjetër
-  - servermessage <mesazh>:Dërgon mesazh privat serverit
-  - read <emriSkedarit>:Lexon skedarin
-  Ne rastin e admin-it:
-  - write <emriSkedarit> <përmbajtje>:Shkruan në skedar
-  - execute <emriSkedarit>:Ekzekuton një skedar
-  - list <folder>:Lista skedarët në një folder
-  - create <emriSkedarit> <përmbajtje>:Krijon skedar të ri
-  - delete <emriSkedarit>:Fshin një skedar
-    `);
+      if (privileges[clientName] === "privilegje te plota") {
+        socket.write(`
+       Komandat që mund të përdorni:
+      - write <emriSkedarit> <përmbajtje>: Shkruan në skedar
+      - execute <emriSkedarit>: Ekzekuton një skedar
+      - list <folder>: Lista skedarët në një folder
+      - create <emriSkedarit> <përmbajtje>: Krijon skedar të ri
+      - delete <emriSkedarit>: Fshin një skedar
+        `);
+      
+      } else {
+        socket.write(`
+       Komandat që mund të përdorni:
+       - broadcast <mesazh>: Dërgon mesazh për të gjithë
+       - chat <emriKlientit> <mesazh>: Dërgon mesazh privat për një klient tjetër
+       - servermessage <mesazh>: Dërgon mesazh privat serverit
+       - read <emriSkedarit>: Lexon skedarin
+       - list <folder>: Lista skedarët në një folder
+        `);
+       
+      }
+        
 
       console.log(`Klienti me emrin ${clientName} është lidhur.`);
     } else {
@@ -240,9 +249,6 @@ const server = net.createServer((socket) => {
     console.log(`Klienti ${clientName} u largua.`);
   });
 
-  socket.on("error", (err) => {
-    console.error(`Gabim i ndodhur gjatë lidhjes me klientin.`);
-  });
 });
 // Funksioni për të dërguar mesazhe për një klient të caktuar
 function sendMessageToClient(clientName, message, senderName) {
