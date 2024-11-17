@@ -40,6 +40,9 @@ const server = net.createServer((socket) => {
       if (privileges[clientName] === "privilegje te plota") {
         socket.write(`
        Komandat që mund të përdorni:
+      - broadcast <mesazh>: Dërgon mesazh për të gjithë
+      - chat <emriKlientit> <mesazh>: Dërgon mesazh privat për një klient tjetër
+      - servermessage <mesazh>: Dërgon mesazh privat serverit
       - write <emriSkedarit> <përmbajtje>: Shkruan në skedar
       - execute <emriSkedarit>: Ekzekuton një skedar
       - list <folder>: Lista skedarët në një folder
