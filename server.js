@@ -251,7 +251,9 @@ const server = net.createServer((socket) => {
     delete clients[clientName]; // Hiq klientin nga lista kur largohet
     console.log(`Klienti ${clientName} u largua.`);
   });
-
+  socket.on("error", (err) => {
+    console.error(`Perfundoi lidhja.`);
+  });
 });
 // Funksioni për të dërguar mesazhe për një klient të caktuar
 function sendMessageToClient(clientName, message, senderName) {
@@ -293,9 +295,21 @@ server.listen(3000, "127.0.0.1", () => {
   // Komanda për të dërguar mesazh broadcast nga terminali i serverit
   rl.on("line", (input) => {
     if (input.startsWith("broadcast ")) {
-      const message = input.slice(10); // Merr mesazhin pas 'broadcast'
+      const message = input.slice(10); // Mesazhi pas 'broadcast'
       broadcastMessage(message, "server");
       console.log(`Mesazh i dërguar për të gjithë: ${message}`);
+    } else if (input.startsWith("chat ")) {
+      const parts = input.split(" ");
+      if (parts.length < 3) {
+        console.log("Përdorimi: chat <clientName> <mesazh>");
+        return;
+      }
+      const targetClient = parts[1]; // Emri i klientit
+      const message = input.slice(5 + targetClient.length + 1); // Mesazhi
+      sendMessageToClient(targetClient, message, "server");
+    } else {
+      console.log("Komandë e pavlefshme.");
     }
   });
 });
+
